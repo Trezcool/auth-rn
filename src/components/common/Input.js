@@ -12,11 +12,13 @@ class Input extends Component {
           secureTextEntry={this.props.secureTextEntry}
           autoCorrect={false}
           placeholder={this.props.placeholder}
+          value={this.props.value}
           autoCapitalize={this.props.autoCapitalize}
           returnKeyType={this.props.returnKeyType}
           clearButtonMode={this.props.clearButtonMode}
           keyboardType={this.props.keyboardType}
           enablesReturnKeyAutomatically={this.props.enablesReturnKeyAutomatically}
+          blurOnSubmit={this.props.blurOnSubmit}
           onSubmitEditing={this.props.onSubmitEditing}
           style={styles.input}
         />
