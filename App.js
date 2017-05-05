@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { BlurView } from "expo";
 import firebase from 'firebase';
 
 import { Header } from './src/components/common';
@@ -21,10 +22,22 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Header title="Authentication" />
-        <LoginForm />
-      </View>
+      <Image
+        source={require('./src/assets/img/background.jpg')}
+        style={styles.container}
+      >
+        <BlurView
+          tint="light"
+          intensity={55}
+          style={StyleSheet.absoluteFill}
+        >
+          <Header title="AuthCool" />
+          <LoginForm />
+          <View style={styles.copyright}>
+            <Text style={styles.copyrightText}>© 2017 Trezcool, Inc.</Text>
+          </View>
+        </BlurView>
+      </Image>
     );
   }
 }
@@ -32,6 +45,17 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F4F4',
+    width: null,
+    height: null,
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    resizeMode: 'cover', // or 'stretch'
+  },
+  copyright: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  copyrightText: {
+    color: '#adb9c2',
   }
 });

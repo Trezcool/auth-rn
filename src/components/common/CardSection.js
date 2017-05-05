@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexDirection: 'row',
     borderColor: '#ddd',
+    borderRadius: 5,
     position: 'relative',
   },
   customBorderBottom: {

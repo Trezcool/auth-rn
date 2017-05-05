@@ -14,10 +14,7 @@ export default class LoginForm extends Component {
     if (email && password) {
       Alert.alert(
         'Success',
-        `
-      Email: ${email}
-      Password: ${password}
-      `
+        `\nEmail: ${email}\nPassword: ${password}`
       )
     }
   };
@@ -44,14 +41,14 @@ export default class LoginForm extends Component {
             returnKeyType="go"
             clearButtonMode="while-editing"
             enablesReturnKeyAutomatically={true}
-            onSubmitEditing={this._handleLogin}
+            onSubmitEditing={this._handleLogin.bind(this)}
           />
         </CardSection>
 
         <CardSection lastChild={true}>
           <Button
             title="Log in"
-            onPress={this._handleLogin}
+            onPress={this._handleLogin.bind(this)}
           />
         </CardSection>
       </Card>

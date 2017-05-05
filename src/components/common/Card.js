@@ -14,14 +14,15 @@ class Card extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff',
     borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#2E86C1',
+    borderRadius: 5,
+    borderColor: '#2980B9',
     borderBottomWidth: 1,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowRadius: 5,
     elevation: 1,
     marginLeft: 5,
     marginRight: 5,
