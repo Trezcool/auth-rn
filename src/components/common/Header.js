@@ -28,9 +28,10 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   title: {
-    fontSize: 17,
-    fontWeight: 'bold',
+    fontSize: 27,
+    // fontWeight: 'bold',
     color: '#2980B9',
+    fontFamily: 'tangerine-bold',
   }
 });
 

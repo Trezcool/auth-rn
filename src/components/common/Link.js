@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     paddingTop: 5,
     paddingBottom: 5,
+    fontFamily: 'open-sans-regular',
   },
   container: {
     flex: 1,

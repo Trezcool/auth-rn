@@ -35,16 +35,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    fontSize: 18,
+    fontSize: 14,
     paddingLeft: 20,
     flex: 1,
+    fontFamily: 'open-sans-bold',
+    color: '#2980B9',
   },
   input: {
     paddingRight: 5,
     paddingLeft: 5,
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 23,
     flex: 2,
+    fontFamily: 'open-sans-regular',
   }
 });
 

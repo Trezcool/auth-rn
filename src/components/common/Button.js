@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: 'center',
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     paddingTop: 10,
     paddingBottom: 10,
+    fontFamily: 'josefin-slab-bold',
   },
   container: {
     flex: 1,
