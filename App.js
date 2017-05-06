@@ -75,7 +75,7 @@ export default class App extends Component {
           </Animatable.Text>
         </View>
       </View>
-    ) : null
+    ) : <Spinner color="#2980B9" />;
   };
 
   render() {
