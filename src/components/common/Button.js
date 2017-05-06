@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 class Button extends Component {
 
   render() {
+    const { disabled } = this.props;
     return (
       <TouchableOpacity
-        style={styles.container}
+        style={[styles.container, this.props.style, disabled && styles.disabled]}
+        disabled={disabled}
         onPress={this.props.onPress}
       >
         <Text style={styles.title}>{this.props.title}</Text>
@@ -26,7 +29,6 @@ const styles = StyleSheet.create({
     fontFamily: 'josefin-slab-bold',
   },
   container: {
-    flex: 1,
     alignSelf: 'stretch',
     backgroundColor: '#2980B9',
     borderWidth: 1,
@@ -34,7 +36,12 @@ const styles = StyleSheet.create({
     borderColor: '#2980B9',
     marginLeft: 5,
     marginRight: 5,
+  },
+  disabled: {
+    backgroundColor: 'rgba(41, 128, 185, 0.3)',
+    borderColor: 'rgba(41, 128, 185, 0.3)',
   }
 });
 
+Button = Animatable.createAnimatableComponent(Button);
 export { Button };

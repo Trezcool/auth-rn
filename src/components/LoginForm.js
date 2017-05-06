@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native'
+import * as Animatable from 'react-native-animatable';
 import firebase from 'firebase';
 
 import { Button, Card, CardSection, Input, Link, Spinner } from './common';
@@ -34,16 +35,13 @@ export default class LoginForm extends Component {
 
       try {
         const auth = firebase.auth();
-        let message;
         if (isLogin) {
           await auth.signInWithEmailAndPassword(email, password);
-          message = 'Logged in successfully.';
         } else {
           await auth.createUserWithEmailAndPassword(email, password);
-          message = 'Signed up successfully.\nPlease log in.';
+          this._resetState();
+          Alert.alert('Success', 'Signed up successfully.\nPlease log in.');
         }
-        this._resetState();
-        Alert.alert('Success', message);
       } catch (e) {
         this.setState({
           error: 'Authentication failed.',
@@ -55,7 +53,7 @@ export default class LoginForm extends Component {
   };
 
   renderButton = () => {
-    const { isLogin, loading } = this.state;
+    const { email, password, isLogin, loading } = this.state;
 
     if (loading) {
       return (
@@ -70,7 +68,9 @@ export default class LoginForm extends Component {
         <CardSection lastChild={true}>
           <Button
             title={isLogin && 'Log In' || 'Sign Up'}
+            disabled={!(email && password)}
             onPress={this._handleLogin.bind(this)}
+            style={{flex: 1}}
           />
         </CardSection>
         <CardSection lastChild={true}>
@@ -87,41 +87,43 @@ export default class LoginForm extends Component {
     const { email, password, error } = this.state;
 
     return (
-      <Card>
-        <CardSection>
-          <Input
-            label="Email"
-            placeholder="email@example.com"
-            value={email}
-            autoCapitalize="none"
-            clearButtonMode="while-editing"
-            keyboardType="email-address"
-            onChangeText={email => this.setState({email})}
-            returnKeyType="next"
-            // blurOnSubmit={false}
-            // onSubmitEditing={() => this.passwordInput.focus()}  // FIXME: `focus` no longer exist :(
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            // ref={(input) => { this.passwordInput = input; }}
-            label="Password"
-            placeholder="password"
-            value={password}
-            onChangeText={password => this.setState({password})}
-            secureTextEntry={true}
-            returnKeyType="go"
-            clearButtonMode="while-editing"
-            enablesReturnKeyAutomatically={true}
-            onSubmitEditing={this._handleLogin.bind(this)}
-          />
-        </CardSection>
+      <Animatable.View animation="fadeInDown">
+        <Card>
+          <CardSection>
+            <Input
+              label="Email"
+              placeholder="email@example.com"
+              value={email}
+              autoCapitalize="none"
+              clearButtonMode="while-editing"
+              keyboardType="email-address"
+              onChangeText={email => this.setState({email})}
+              returnKeyType="next"
+              // blurOnSubmit={false}
+              // onSubmitEditing={() => this.passwordInput.focus()}  // FIXME: `focus` no longer exist :(
+            />
+          </CardSection>
+          <CardSection>
+            <Input
+              // ref={(input) => { this.passwordInput = input; }}
+              label="Password"
+              placeholder="password"
+              value={password}
+              onChangeText={password => this.setState({password})}
+              secureTextEntry={true}
+              returnKeyType="go"
+              clearButtonMode="while-editing"
+              enablesReturnKeyAutomatically={true}
+              onSubmitEditing={this._handleLogin.bind(this)}
+            />
+          </CardSection>
 
-        <Text style={styles.error}>
-          {error}
-        </Text>
-        {this.renderButton()}
-      </Card>
+          <Text style={styles.error}>
+            {error}
+          </Text>
+          {this.renderButton()}
+        </Card>
+      </Animatable.View>
     );
   }
 }

@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { BlurView, Font } from "expo";
+import * as Animatable from 'react-native-animatable';
 import firebase from 'firebase';
 
 import { Header } from './src/components/common';
 import LoginForm from "./src/components/LoginForm";
+import WelcomeScreen from "./src/components/WelcomeScreen";
 
 export default class App extends Component {
   state = {
     fontsLoaded: false,
+    loggedIn: null,
   };
 
-  //noinspection JSMethodCanBeStatic
   componentWillMount() {
     const firebaseConf = {
       apiKey: "AIzaSyCWtyZnHOs6bEBiacrch9dr2Mu0HBTWXuQ",
@@ -22,6 +24,14 @@ export default class App extends Component {
       messagingSenderId: "475081222257"
     };
     firebase.initializeApp(firebaseConf);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({loggedIn: true});
+      } else {
+        this.setState({loggedIn: false});
+      }
+    });
   }
 
   async componentDidMount() {
@@ -29,6 +39,7 @@ export default class App extends Component {
       'josefin-slab-bold': require('./src/assets/fonts/JosefinSlab-Bold.ttf'),
       'josefin-slab-thin': require('./src/assets/fonts/JosefinSlab-Thin.ttf'),
       'open-sans-bold': require('./src/assets/fonts/OpenSans-Bold.ttf'),
+      'open-sans-italic': require('./src/assets/fonts/OpenSans-Italic.ttf'),
       'open-sans-regular': require('./src/assets/fonts/OpenSans-Regular.ttf'),
       'tangerine-bold': require('./src/assets/fonts/Tangerine_Bold.ttf'),
       'tangerine-regular': require('./src/assets/fonts/Tangerine_Regular.ttf'),
@@ -36,13 +47,27 @@ export default class App extends Component {
     this.setState({fontsLoaded: true});
   }
 
+  renderContent = () => {
+    const { loggedIn } = this.state;
+    if (loggedIn === null) return null;
+    return loggedIn ? <WelcomeScreen /> : <LoginForm />
+  };
+
   renderView = () => {
     return this.state.fontsLoaded ? (
       <View style={{flex: 1}}>
         <Header title="AuthCool"/>
-        <LoginForm />
-        <View style={styles.copyright}>
-          <Text style={styles.copyrightText}>© 2017 Trezcool, Inc.</Text>
+        {this.renderContent()}
+
+        <View style={styles.footer}>
+          <Animatable.Text
+            animation="slideInDown"
+            iterationCount="infinite"
+            direction="alternate-reverse"
+            style={styles.footerText}
+          >
+            © 2017 Trezcool, Inc.
+          </Animatable.Text>
         </View>
       </View>
     ) : null
@@ -74,12 +99,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0)',
     resizeMode: 'cover', // or 'stretch'
   },
-  copyright: {
+  footer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  copyrightText: {
+  footerText: {
     color: '#adb9c2',
     fontSize: 22,
     fontFamily: 'tangerine-bold',
