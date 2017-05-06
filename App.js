@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { BlurView, Font } from "expo";
 import * as Animatable from 'react-native-animatable';
 import firebase from 'firebase';
 
-import { Header } from './src/components/common';
+import { Header, Spinner } from './src/components/common';
 import LoginForm from "./src/components/LoginForm";
 import WelcomeScreen from "./src/components/WelcomeScreen";
 
@@ -48,9 +48,14 @@ export default class App extends Component {
   }
 
   renderContent = () => {
-    const { loggedIn } = this.state;
-    if (loggedIn === null) return null;
-    return loggedIn ? <WelcomeScreen /> : <LoginForm />
+    switch (this.state.loggedIn) {
+      case true:
+        return <WelcomeScreen />;
+      case false:
+        return <LoginForm />;
+      default:
+        return <Spinner color="#2980B9" />;
+    }
   };
 
   renderView = () => {

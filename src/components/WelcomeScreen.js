@@ -42,6 +42,7 @@ export default class WelcomeScreen extends Component {
           title="Log Out"
           animation="slideInUp"
           onPress={this._handleLogout}
+          style={styles.button}
         />
       </View>
     );
@@ -76,5 +77,9 @@ const styles = StyleSheet.create({
     color: '#2980B9',
     fontSize: 30,
     fontFamily: 'open-sans-bold',
+  },
+  button: {
+    marginLeft: 40,
+    marginRight: 40,
   }
 });
