@@ -71,7 +71,7 @@ export default class App extends Component {
             direction="alternate-reverse"
             style={styles.footerText}
           >
-            © 2017 Trezcool, Inc.
+            © 2017 CoolTech, Inc.
           </Animatable.Text>
         </View>
       </View>
