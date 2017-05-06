@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { BlurView, Font } from "expo";
-import * as Animatable from 'react-native-animatable';
 import firebase from 'firebase';
 
-import { Header, Spinner } from './src/components/common';
+import { Footer, Header, Spinner } from './src/components/common';
 import LoginForm from "./src/components/LoginForm";
 import WelcomeScreen from "./src/components/WelcomeScreen";
 
@@ -61,19 +60,16 @@ export default class App extends Component {
   renderView = () => {
     return this.state.fontsLoaded ? (
       <View style={{flex: 1}}>
-        <Header title="AuthCool"/>
+        <Header title="AuthCool" />
+
         {this.renderContent()}
 
-        <View style={styles.footer}>
-          <Animatable.Text
-            animation="slideInDown"
-            iterationCount="infinite"
-            direction="alternate-reverse"
-            style={styles.footerText}
-          >
-            © 2017 CoolTech, Inc.
-          </Animatable.Text>
-        </View>
+        <Footer
+          title="© 2017 CoolTech, Inc."
+          animation="slideInDown"
+          iterationCount="infinite"
+          direction="alternate-reverse"
+        />
       </View>
     ) : <Spinner color="#2980B9" />;
   };
@@ -103,15 +99,5 @@ const styles = StyleSheet.create({
     height: null,
     backgroundColor: 'rgba(0, 0, 0, 0)',
     resizeMode: 'cover', // or 'stretch'
-  },
-  footer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  footerText: {
-    color: '#adb9c2',
-    fontSize: 22,
-    fontFamily: 'tangerine-bold',
   }
 });
